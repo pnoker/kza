@@ -1,0 +1,28 @@
+<script src="$!{rc.contextPath}/js/content.js"></script>
+<nav class="navbar navbar-default" role="navigation">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="javascript:back()">返回</a>
+	</div>
+	<div class="navbar-brand">文章标题：$!{article.title}</div>
+	</div>
+</nav>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12">
+			<small class="center-block text-muted" style="width: 300px;">作者：$!{user.name}
+				发表时间：$!{dateTool.format("YYYY",
+				$!{article.atTime})}年&nbsp;&nbsp;$!{dateTool.format("MM",
+				$!{article.atTime})}月&nbsp;&nbsp;$!{dateTool.format("dd",
+				$!{article.atTime})}日</small>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-2"></div>
+		<div class="col-sm-8">
+			<div class="col-sm-12">文章内容：$!{article.content}</div>
+				<div class="col-sm-12">页底</div>
+		</div>
+
+		<div class="col-sm-2"></div>
+	</div>
+</div>

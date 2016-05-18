@@ -1,0 +1,34 @@
+<div class="col-sm-12" style="height: 450px">
+	<table class="table table-hover table-bordered">
+		<thead>
+			<tr>
+				<th class="col-sm-2">文章名称</th>
+				<th class="col-sm-1">文章作者</th>
+				<th class="col-sm-2">文章摘要</th>
+				<th class="col-sm-1">文发表时间</th>
+				<th class="col-sm-2">操作</th>
+			</tr>
+		</thead>
+		#foreach($articles in ${articles})
+		<tbody>
+			<tr>
+				<td>$!{articles.title}</td>
+				<td>$!{articles.name}</td>
+				<td>$!{articles.summary}</td>
+				<td>$!{articles.atTime}</td>
+				<td><a onclick="javascript:alertArticle($!{articles.id})"
+					class="btn btn-warning">修改文章</a>&nbsp;&nbsp;<a
+					onclick="javascript:delectArticle($!{articles.id})"
+					class="btn btn-warning">删除文章</a>&nbsp;&nbsp;<a
+					onclick="javascript:detailArticle($!{articles.id})"
+					class="btn btn-warning">文章详情</a></td>
+			</tr>
+		</tbody>
+		#end
+	</table>
+</div>
+<div class="col-sm-12">
+	<p class="text-center" style="margin-top: 10px">当前页面为：<strong>$!{pageinfo.page}</strong>&nbsp;&nbsp;页&nbsp;&nbsp;&nbsp;&nbsp;</p>
+</div>
+
+

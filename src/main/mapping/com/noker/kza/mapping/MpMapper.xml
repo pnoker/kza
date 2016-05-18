@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.noker.kza.dao.MpMapper">
+  <resultMap id="BaseResultMap" type="com.noker.kza.model.Mp">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="app_id" jdbcType="VARCHAR" property="appId" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="app_secret" jdbcType="VARCHAR" property="appSecret" />
+    <result column="app_token" jdbcType="VARCHAR" property="appToken" />
+    <result column="app_aesKey" jdbcType="VARCHAR" property="appAeskey" />
+    <result column="refresh_token" jdbcType="VARCHAR" property="refreshToken" />
+    <result column="raw_id" jdbcType="VARCHAR" property="rawId" />
+    <result column="logo" jdbcType="VARCHAR" property="logo" />
+    <result column="app_qr" jdbcType="VARCHAR" property="appQr" />
+    <result column="service_type" jdbcType="INTEGER" property="serviceType" />
+    <result column="verify_type" jdbcType="INTEGER" property="verifyType" />
+    <result column="at_time" jdbcType="TIMESTAMP" property="atTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    app_id, code, name, app_secret, app_token, app_aesKey, refresh_token, raw_id, logo, 
+    app_qr, service_type, verify_type, at_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from mp
+    where app_id = #{appId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    delete from mp
+    where app_id = #{appId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.noker.kza.model.Mp">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    insert into mp (app_id, code, name, 
+      app_secret, app_token, app_aesKey, 
+      refresh_token, raw_id, logo, 
+      app_qr, service_type, verify_type, 
+      at_time)
+    values (#{appId,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{appSecret,jdbcType=VARCHAR}, #{appToken,jdbcType=VARCHAR}, #{appAeskey,jdbcType=VARCHAR}, 
+      #{refreshToken,jdbcType=VARCHAR}, #{rawId,jdbcType=VARCHAR}, #{logo,jdbcType=VARCHAR}, 
+      #{appQr,jdbcType=VARCHAR}, #{serviceType,jdbcType=INTEGER}, #{verifyType,jdbcType=INTEGER}, 
+      #{atTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.noker.kza.model.Mp">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    insert into mp
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="appId != null">
+        app_id,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="appSecret != null">
+        app_secret,
+      </if>
+      <if test="appToken != null">
+        app_token,
+      </if>
+      <if test="appAeskey != null">
+        app_aesKey,
+      </if>
+      <if test="refreshToken != null">
+        refresh_token,
+      </if>
+      <if test="rawId != null">
+        raw_id,
+      </if>
+      <if test="logo != null">
+        logo,
+      </if>
+      <if test="appQr != null">
+        app_qr,
+      </if>
+      <if test="serviceType != null">
+        service_type,
+      </if>
+      <if test="verifyType != null">
+        verify_type,
+      </if>
+      <if test="atTime != null">
+        at_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="appId != null">
+        #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="appSecret != null">
+        #{appSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="appToken != null">
+        #{appToken,jdbcType=VARCHAR},
+      </if>
+      <if test="appAeskey != null">
+        #{appAeskey,jdbcType=VARCHAR},
+      </if>
+      <if test="refreshToken != null">
+        #{refreshToken,jdbcType=VARCHAR},
+      </if>
+      <if test="rawId != null">
+        #{rawId,jdbcType=VARCHAR},
+      </if>
+      <if test="logo != null">
+        #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="appQr != null">
+        #{appQr,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceType != null">
+        #{serviceType,jdbcType=INTEGER},
+      </if>
+      <if test="verifyType != null">
+        #{verifyType,jdbcType=INTEGER},
+      </if>
+      <if test="atTime != null">
+        #{atTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.noker.kza.model.Mp">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    update mp
+    <set>
+      <if test="code != null">
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="appSecret != null">
+        app_secret = #{appSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="appToken != null">
+        app_token = #{appToken,jdbcType=VARCHAR},
+      </if>
+      <if test="appAeskey != null">
+        app_aesKey = #{appAeskey,jdbcType=VARCHAR},
+      </if>
+      <if test="refreshToken != null">
+        refresh_token = #{refreshToken,jdbcType=VARCHAR},
+      </if>
+      <if test="rawId != null">
+        raw_id = #{rawId,jdbcType=VARCHAR},
+      </if>
+      <if test="logo != null">
+        logo = #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="appQr != null">
+        app_qr = #{appQr,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceType != null">
+        service_type = #{serviceType,jdbcType=INTEGER},
+      </if>
+      <if test="verifyType != null">
+        verify_type = #{verifyType,jdbcType=INTEGER},
+      </if>
+      <if test="atTime != null">
+        at_time = #{atTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where app_id = #{appId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.noker.kza.model.Mp">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    update mp
+    set code = #{code,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      app_secret = #{appSecret,jdbcType=VARCHAR},
+      app_token = #{appToken,jdbcType=VARCHAR},
+      app_aesKey = #{appAeskey,jdbcType=VARCHAR},
+      refresh_token = #{refreshToken,jdbcType=VARCHAR},
+      raw_id = #{rawId,jdbcType=VARCHAR},
+      logo = #{logo,jdbcType=VARCHAR},
+      app_qr = #{appQr,jdbcType=VARCHAR},
+      service_type = #{serviceType,jdbcType=INTEGER},
+      verify_type = #{verifyType,jdbcType=INTEGER},
+      at_time = #{atTime,jdbcType=TIMESTAMP}
+    where app_id = #{appId,jdbcType=VARCHAR}
+  </update>
+</mapper>

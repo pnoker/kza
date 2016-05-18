@@ -1,0 +1,47 @@
+<div class="col-sm-12" style="height: 420px">
+	<table class="table table-hover table-bordered">
+		<thead>
+			<tr>
+				<th class="col-sm-1">..</th>
+				<th class="col-sm-1">姓名</th>
+				<th class="col-sm-1">性别</th>
+				<th class="col-sm-1">联系电话</th>
+				<th class="col-sm-1">发表文章数目</th>
+				<th class="col-sm-1">拥有患者数目</th>
+				<th class="col-sm-1">资金统计</th>
+				<th class="col-sm-2">详情……</th>
+			</tr>
+		</thead>
+		#foreach($doctors in ${doctors})
+		<tbody>
+			<tr>
+				<td><img src="$!{doctors.wLogo}" width="80px"></td>
+				<td>$!{doctors.name}</td>
+				<!-- 姓名 -->
+				<td>$!{doctors.sex}</td>
+				<!-- 性别 -->
+				<td>$!{doctors.mobile}</td>
+				<!-- 手机号码 -->
+				<td>$!{doctors.Aacount}</td>
+				<!-- 已发表文章账号 -->
+				<td>$!{doctors.Pacount}</td>
+				<!-- 改医生有多少位患者 -->
+				<td>$!{doctors.Facunt}</td>
+				<!-- 该医生的资金数目 -->
+				<td><a onclick="javascript:alertDoctor($!{doctors.userId})"
+					class="btn btn-warning">修改</a>&nbsp;&nbsp;<a
+					onclick="javascript:delectDoctor('$!{doctors.userId}')"
+					class="btn btn-warning">删除</a>&nbsp;&nbsp;<a
+					onclick="javascript:detailDoctor('$!{doctors.userId}')"
+					class="btn btn-warning">详情</a></td>
+				<!-- 详情按钮 -->
+			</tr>
+		</tbody>
+		#end
+	</table>
+</div>
+<div class="col-sm-12">
+	<p class="text-center" style="margin-top: 10px">
+		当前页面为：<strong>$!{pageinfo.page}</strong>&nbsp;&nbsp;页&nbsp;&nbsp;&nbsp;&nbsp;
+	</p>
+</div>

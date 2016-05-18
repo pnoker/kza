@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.noker.kza.dao.ReservePlusMapper">
+  <resultMap id="BaseResultMap" type="com.noker.kza.model.ReservePlus">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="app_id" jdbcType="VARCHAR" property="appId" />
+    <result column="week" jdbcType="INTEGER" property="week" />
+    <result column="am" jdbcType="INTEGER" property="am" />
+    <result column="pm" jdbcType="INTEGER" property="pm" />
+    <result column="max" jdbcType="INTEGER" property="max" />
+    <result column="price" jdbcType="INTEGER" property="price" />
+    <result column="is_open" jdbcType="INTEGER" property="isOpen" />
+    <result column="at_time" jdbcType="TIMESTAMP" property="atTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    app_id, week, am, pm, max, price, is_open, at_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from reserve_plus
+    where app_id = #{appId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    delete from reserve_plus
+    where app_id = #{appId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.noker.kza.model.ReservePlus">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    insert into reserve_plus (app_id, week, am, 
+      pm, max, price, is_open, 
+      at_time)
+    values (#{appId,jdbcType=VARCHAR}, #{week,jdbcType=INTEGER}, #{am,jdbcType=INTEGER}, 
+      #{pm,jdbcType=INTEGER}, #{max,jdbcType=INTEGER}, #{price,jdbcType=INTEGER}, #{isOpen,jdbcType=INTEGER}, 
+      #{atTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.noker.kza.model.ReservePlus">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    insert into reserve_plus
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="appId != null">
+        app_id,
+      </if>
+      <if test="week != null">
+        week,
+      </if>
+      <if test="am != null">
+        am,
+      </if>
+      <if test="pm != null">
+        pm,
+      </if>
+      <if test="max != null">
+        max,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="isOpen != null">
+        is_open,
+      </if>
+      <if test="atTime != null">
+        at_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="appId != null">
+        #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="week != null">
+        #{week,jdbcType=INTEGER},
+      </if>
+      <if test="am != null">
+        #{am,jdbcType=INTEGER},
+      </if>
+      <if test="pm != null">
+        #{pm,jdbcType=INTEGER},
+      </if>
+      <if test="max != null">
+        #{max,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=INTEGER},
+      </if>
+      <if test="isOpen != null">
+        #{isOpen,jdbcType=INTEGER},
+      </if>
+      <if test="atTime != null">
+        #{atTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.noker.kza.model.ReservePlus">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    update reserve_plus
+    <set>
+      <if test="week != null">
+        week = #{week,jdbcType=INTEGER},
+      </if>
+      <if test="am != null">
+        am = #{am,jdbcType=INTEGER},
+      </if>
+      <if test="pm != null">
+        pm = #{pm,jdbcType=INTEGER},
+      </if>
+      <if test="max != null">
+        max = #{max,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=INTEGER},
+      </if>
+      <if test="isOpen != null">
+        is_open = #{isOpen,jdbcType=INTEGER},
+      </if>
+      <if test="atTime != null">
+        at_time = #{atTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where app_id = #{appId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.noker.kza.model.ReservePlus">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    update reserve_plus
+    set week = #{week,jdbcType=INTEGER},
+      am = #{am,jdbcType=INTEGER},
+      pm = #{pm,jdbcType=INTEGER},
+      max = #{max,jdbcType=INTEGER},
+      price = #{price,jdbcType=INTEGER},
+      is_open = #{isOpen,jdbcType=INTEGER},
+      at_time = #{atTime,jdbcType=TIMESTAMP}
+    where app_id = #{appId,jdbcType=VARCHAR}
+  </update>
+</mapper>

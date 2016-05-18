@@ -1,0 +1,64 @@
+#parse("layout/navigation.html")
+<script
+	src="http://g.alicdn.com/sj/sui-editor/0.0.2/sui-editor.config.js"></script>
+<script
+	src="http://g.alicdn.com/sj/sui-editor/0.0.2/editor/js/sui-editor.js"></script>
+<link
+	href="http://g.alicdn.com/sj/sui-editor/0.0.2/editor/css/sui-editor.css"
+	rel="stylesheet">
+<div class="container">
+	<div class="row">
+		<div class="col-sm-8 navbar-left">
+			<button type="button" class="btn btn-warning" data-toggle="modal"
+				data-target="#addArticle">
+				<span class="glyphicon glyphicon-th"></span>&nbsp;&nbsp;添加文章
+			</button>
+		</div>
+		<div class="col-sm-4">
+			<form class="navbar-form navbar-right" role="search">
+				<div class="form-group">
+					<input id="searcharticle" type="text" class="form-control"
+						placeholder="文章搜索">
+				</div>
+				<button type="submit" class="btn btn-danger">
+					<span class="glyphicon glyphicon-search"></span>&nbsp;&nbsp;搜索
+				</button>
+			</form>
+		</div>
+	</div>
+	<div id="articlelist" class="row"></div>
+	<div class="row">
+		<div id="page" class="col-sm-12" style="margin-bottom: 20px">
+			#parse("user/artPage.html")</div>
+	</div>
+</div>
+<!-- 添加文章 -->
+<div class="modal fade" id="addArticle" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<input id="title" type="text" class="form-control"
+					placeholder="输入文章题目"> <input id="summary" type="text"
+					class="form-control" placeholder="文章摘要">
+			</div>
+			<div class="modal-body">
+				<div>
+					<textarea id="editor" style="width: 576px; height: 300px;"></textarea>
+				</div>
+				<script type="text/javascript">
+					var $editor = $('#editor').editor();
+				</script>
+			</div>
+			<div class="modal-footer">
+				<button id="hideArtBtn" type="button" class="btn btn-default"
+					data-dismiss="modal">显示提交的文字内容</button>
+				<button id="addArtBtn" type="button" class="btn btn-primary"
+					onclick="addArticle()">添加文章</button>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="${rc.contextPath}/js/iArticle.js"></script>

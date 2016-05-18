@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.noker.kza.dao.UserMapper">
+	<resultMap id="BaseResultMap" type="com.noker.kza.model.User">
+		<!-- WARNING - @mbggenerated -->
+		<id column="user_id" jdbcType="VARCHAR" property="userId" />
+		<result column="user_pw" jdbcType="VARCHAR" property="userPw" />
+		<result column="pay_id" jdbcType="VARCHAR" property="payId" />
+		<result column="pay_pw" jdbcType="VARCHAR" property="payPw" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="sex" jdbcType="INTEGER" property="sex" />
+		<result column="birthday" jdbcType="TIMESTAMP" property="birthday" />
+		<result column="mobile" jdbcType="VARCHAR" property="mobile" />
+		<result column="mail" jdbcType="VARCHAR" property="mail" />
+		<result column="qq" jdbcType="VARCHAR" property="qq" />
+		<result column="country" jdbcType="VARCHAR" property="country" />
+		<result column="province" jdbcType="VARCHAR" property="province" />
+		<result column="city" jdbcType="VARCHAR" property="city" />
+		<result column="district" jdbcType="VARCHAR" property="district" />
+		<result column="address" jdbcType="VARCHAR" property="address" />
+		<result column="w_code" jdbcType="VARCHAR" property="wCode" />
+		<result column="w_name" jdbcType="VARCHAR" property="wName" />
+		<result column="w_logo" jdbcType="VARCHAR" property="wLogo" />
+		<result column="at_time" jdbcType="TIMESTAMP" property="atTime" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		<!-- WARNING - @mbggenerated -->
+		user_id, user_pw, pay_id, pay_pw, name, sex, birthday, mobile, mail,
+		qq, country,
+		province, city, district, address, w_code, w_name, w_logo,
+		at_time
+	</sql>
+	<!-- 通过登录界面提交的用户姓名查找密码userPw以String的类型返回给登录界面 -->
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		<!-- WARNING - @mbggenerated -->
+		select
+		<include refid="Base_Column_List" />
+		from user
+		where user_id = #{userId,jdbcType=VARCHAR}
+	</select>
+	<!-- 查询某个医生的详细个人信息 -->
+	<select id="selectDoctor" parameterType="java.lang.String"
+		resultType="com.noker.kza.bean.Doctor">
+		SELECT * FROM (SELECT app_id as appId, open_id as openId, user.`user_id`,role,
+		NAME, sex, birthday, mail, qq, mobile,country, province, city, district,
+		w_logo AS wLogo FROM
+		USER RIGHT JOIN mp_user ON mp_user.`user_id` = user.`user_id` WHERE role =
+		2) AS doctor WHERE user_id=#{userId,jdbcType=VARCHAR}
+	</select>
+	<!-- 统计医生的人数 -->
+	<select id="countDoctor" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM (SELECT
+		role,NAME,sex,birthday,mail,qq,country,province,city,district,w_logo
+		AS wLogo
+		FROM USER RIGHT JOIN mp_user ON
+		mp_user.`user_id`=user.`user_id` WHERE
+		role=2 ORDER BY mp_user.at_time)
+		AS a
+	</select>
+	<!-- 医生分页查询 -->
+	<select id="pageDoctor" parameterType="com.noker.kza.bean.Page"
+		resultType="com.noker.kza.bean.Doctor">
+		SELECT * FROM (SELECT
+		app_id as appId,
+		open_id as openId,
+		user.`user_id` as userId,
+		role,
+		NAME,
+		sex,
+		birthday,
+		mail,
+		qq,
+		mobile,
+		country,
+		province,
+		city,
+		district,
+		w_logo AS wLogo
+		FROM
+		USER
+		RIGHT JOIN mp_user
+		ON mp_user.`user_id` = user.`user_id`
+		WHERE role
+		= 2
+		ORDER BY mp_user.at_time )
+		AS a
+		LIMIT
+		#{pre,jdbcType=INTEGER},#{nex,jdbcType=INTEGER}
+	</select>
+	<select id="selectPatient" parameterType="com.noker.kza.bean.Patient"
+		resultType="com.noker.kza.bean.Patient">
+		SELECT
+		role,NAME,sex,birthday,mail,qq,country,province,city,district,w_logo
+		as wLogo FROM
+		USER RIGHT JOIN mp_user ON
+		mp_user.`user_id`=user.`user_id` where
+		role=1
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		<!-- WARNING - @mbggenerated -->
+		delete from user
+		where user_id = #{userId,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.noker.kza.model.User">
+		<!-- WARNING - @mbggenerated -->
+		insert into user (user_id, user_pw, pay_id,
+		pay_pw, name, sex,
+		birthday,
+		mobile, mail, qq, country,
+		province, city, district,
+		address,
+		w_code, w_name,
+		w_logo, at_time)
+		values (#{userId,jdbcType=VARCHAR},
+		#{userPw,jdbcType=VARCHAR},
+		#{payId,jdbcType=VARCHAR},
+		#{payPw,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+		#{sex,jdbcType=INTEGER},
+		#{birthday,jdbcType=TIMESTAMP},
+		#{mobile,jdbcType=VARCHAR}, #{mail,jdbcType=VARCHAR},
+		#{qq,jdbcType=VARCHAR},
+		#{country,jdbcType=VARCHAR},
+		#{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR},
+		#{district,jdbcType=VARCHAR},
+		#{address,jdbcType=VARCHAR},
+		#{wCode,jdbcType=VARCHAR},
+		#{wName,jdbcType=VARCHAR},
+		#{wLogo,jdbcType=VARCHAR}, #{atTime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" parameterType="com.noker.kza.model.User">
+		<!-- WARNING - @mbggenerated -->
+		insert into user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="userPw != null">
+				user_pw,
+			</if>
+			<if test="payId != null">
+				pay_id,
+			</if>
+			<if test="payPw != null">
+				pay_pw,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="sex != null">
+				sex,
+			</if>
+			<if test="birthday != null">
+				birthday,
+			</if>
+			<if test="mobile != null">
+				mobile,
+			</if>
+			<if test="mail != null">
+				mail,
+			</if>
+			<if test="qq != null">
+				qq,
+			</if>
+			<if test="country != null">
+				country,
+			</if>
+			<if test="province != null">
+				province,
+			</if>
+			<if test="city != null">
+				city,
+			</if>
+			<if test="district != null">
+				district,
+			</if>
+			<if test="address != null">
+				address,
+			</if>
+			<if test="wCode != null">
+				w_code,
+			</if>
+			<if test="wName != null">
+				w_name,
+			</if>
+			<if test="wLogo != null">
+				w_logo,
+			</if>
+			<if test="atTime != null">
+				at_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				#{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="userPw != null">
+				#{userPw,jdbcType=VARCHAR},
+			</if>
+			<if test="payId != null">
+				#{payId,jdbcType=VARCHAR},
+			</if>
+			<if test="payPw != null">
+				#{payPw,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				#{sex,jdbcType=INTEGER},
+			</if>
+			<if test="birthday != null">
+				#{birthday,jdbcType=TIMESTAMP},
+			</if>
+			<if test="mobile != null">
+				#{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="mail != null">
+				#{mail,jdbcType=VARCHAR},
+			</if>
+			<if test="qq != null">
+				#{qq,jdbcType=VARCHAR},
+			</if>
+			<if test="country != null">
+				#{country,jdbcType=VARCHAR},
+			</if>
+			<if test="province != null">
+				#{province,jdbcType=VARCHAR},
+			</if>
+			<if test="city != null">
+				#{city,jdbcType=VARCHAR},
+			</if>
+			<if test="district != null">
+				#{district,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+				#{address,jdbcType=VARCHAR},
+			</if>
+			<if test="wCode != null">
+				#{wCode,jdbcType=VARCHAR},
+			</if>
+			<if test="wName != null">
+				#{wName,jdbcType=VARCHAR},
+			</if>
+			<if test="wLogo != null">
+				#{wLogo,jdbcType=VARCHAR},
+			</if>
+			<if test="atTime != null">
+				#{atTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.noker.kza.model.User">
+		<!-- WARNING - @mbggenerated -->
+		update user
+		<set>
+			<if test="userPw != null">
+				user_pw = #{userPw,jdbcType=VARCHAR},
+			</if>
+			<if test="payId != null">
+				pay_id = #{payId,jdbcType=VARCHAR},
+			</if>
+			<if test="payPw != null">
+				pay_pw = #{payPw,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				sex = #{sex,jdbcType=INTEGER},
+			</if>
+			<if test="birthday != null">
+				birthday = #{birthday,jdbcType=TIMESTAMP},
+			</if>
+			<if test="mobile != null">
+				mobile = #{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="mail != null">
+				mail = #{mail,jdbcType=VARCHAR},
+			</if>
+			<if test="qq != null">
+				qq = #{qq,jdbcType=VARCHAR},
+			</if>
+			<if test="country != null">
+				country = #{country,jdbcType=VARCHAR},
+			</if>
+			<if test="province != null">
+				province = #{province,jdbcType=VARCHAR},
+			</if>
+			<if test="city != null">
+				city = #{city,jdbcType=VARCHAR},
+			</if>
+			<if test="district != null">
+				district = #{district,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+				address = #{address,jdbcType=VARCHAR},
+			</if>
+			<if test="wCode != null">
+				w_code = #{wCode,jdbcType=VARCHAR},
+			</if>
+			<if test="wName != null">
+				w_name = #{wName,jdbcType=VARCHAR},
+			</if>
+			<if test="wLogo != null">
+				w_logo = #{wLogo,jdbcType=VARCHAR},
+			</if>
+			<if test="atTime != null">
+				at_time = #{atTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where user_id = #{userId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.noker.kza.model.User">
+		<!-- WARNING - @mbggenerated -->
+		update user
+		set user_pw = #{userPw,jdbcType=VARCHAR},
+		pay_id =
+		#{payId,jdbcType=VARCHAR},
+		pay_pw = #{payPw,jdbcType=VARCHAR},
+		name =
+		#{name,jdbcType=VARCHAR},
+		sex = #{sex,jdbcType=INTEGER},
+		birthday =
+		#{birthday,jdbcType=TIMESTAMP},
+		mobile = #{mobile,jdbcType=VARCHAR},
+		mail = #{mail,jdbcType=VARCHAR},
+		qq = #{qq,jdbcType=VARCHAR},
+		country =
+		#{country,jdbcType=VARCHAR},
+		province = #{province,jdbcType=VARCHAR},
+		city = #{city,jdbcType=VARCHAR},
+		district =
+		#{district,jdbcType=VARCHAR},
+		address = #{address,jdbcType=VARCHAR},
+		w_code = #{wCode,jdbcType=VARCHAR},
+		w_name = #{wName,jdbcType=VARCHAR},
+		w_logo = #{wLogo,jdbcType=VARCHAR},
+		at_time =
+		#{atTime,jdbcType=TIMESTAMP}
+		where user_id = #{userId,jdbcType=VARCHAR}
+	</update>
+
+	<select id="selectByMpUserKey" parameterType="com.noker.kza.model.MpUserKey"
+		resultMap="BaseResultMap">
+		select u.* from (select user_id from
+		mp_user where
+		app_id=#{appId,jdbcType=VARCHAR}
+		and
+		open_id=#{openId,jdbcType=VARCHAR}) mu
+		left join user u
+		on
+		u.user_id=mu.user_id
+	</select>
+</mapper>

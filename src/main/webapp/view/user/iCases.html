@@ -1,0 +1,46 @@
+#parse("layout/navigation.html")
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12">
+			<table class="sui-table table-bordered">
+				<thead>
+					<tr>
+						<th class="col-sm-1">..</th>
+						<th class="col-sm-1">姓名</th>
+						<th class="col-sm-1">性别</th>
+						<th class="col-sm-1">联系电话</th>
+						<th class="col-sm-1">微信号</th>
+						<th class="col-sm-1">……</th>
+						<th class="col-sm-1">……</th>
+						<th class="col-sm-1">……</th>
+						<th class="col-sm-1">详情……</th>
+					</tr>
+				</thead>
+				#foreach($doctors in ${doctors})
+				<tbody>
+					<tr>
+						<td><img src="$!{doctors.wLogo}" width="80px"></td>
+						<td>$!{doctors.name}</td>
+						<!-- 姓名 -->
+						<td>$!{doctors.sex}</td>
+						<!-- 性别 -->
+						<td>$!{doctors.mobile}</td>
+						<!-- 手机号码 -->
+						<td>$!{doctors.wCode}</td>
+						<!-- 微信账号 -->
+						<td>$!{doctors.Aacount}</td>
+						<!-- 已发表文章账号 -->
+						<td>$!{doctors.Pacount}</td>
+						<!-- 改医生有多少位患者 -->
+						<td>$!{doctors.Facunt}</td>
+						<!-- 该医生的资金数目 -->
+						<td><a>删除</a><a>修改</a></td>
+						<!-- 详情按钮 -->
+					</tr>
+				</tbody>
+				#end
+			</table>
+		</div>
+	</div>
+</div>
+<script src="${rc.contextPath}/js/iCase.js"></script>

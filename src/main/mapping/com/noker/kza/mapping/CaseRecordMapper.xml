@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.noker.kza.dao.CaseRecordMapper">
+  <resultMap id="BaseResultMap" type="com.noker.kza.model.CaseRecord">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="memo" jdbcType="VARCHAR" property="memo" />
+    <result column="report" jdbcType="VARCHAR" property="report" />
+    <result column="result" jdbcType="VARCHAR" property="result" />
+    <result column="picture" jdbcType="VARCHAR" property="picture" />
+    <result column="at_date" jdbcType="TIMESTAMP" property="atDate" />
+    <result column="at_time" jdbcType="TIMESTAMP" property="atTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    id, user_id, description, memo, report, result, picture, at_date, at_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from case_record
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    delete from case_record
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.noker.kza.model.CaseRecord">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    insert into case_record (id, user_id, description, 
+      memo, report, result, 
+      picture, at_date, at_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{memo,jdbcType=VARCHAR}, #{report,jdbcType=VARCHAR}, #{result,jdbcType=VARCHAR}, 
+      #{picture,jdbcType=VARCHAR}, #{atDate,jdbcType=TIMESTAMP}, #{atTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.noker.kza.model.CaseRecord">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    insert into case_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="memo != null">
+        memo,
+      </if>
+      <if test="report != null">
+        report,
+      </if>
+      <if test="result != null">
+        result,
+      </if>
+      <if test="picture != null">
+        picture,
+      </if>
+      <if test="atDate != null">
+        at_date,
+      </if>
+      <if test="atTime != null">
+        at_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null">
+        #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="report != null">
+        #{report,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null">
+        #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null">
+        #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="atDate != null">
+        #{atDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="atTime != null">
+        #{atTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.noker.kza.model.CaseRecord">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    update case_record
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null">
+        memo = #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="report != null">
+        report = #{report,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null">
+        result = #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null">
+        picture = #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="atDate != null">
+        at_date = #{atDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="atTime != null">
+        at_time = #{atTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.noker.kza.model.CaseRecord">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    update case_record
+    set user_id = #{userId,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      memo = #{memo,jdbcType=VARCHAR},
+      report = #{report,jdbcType=VARCHAR},
+      result = #{result,jdbcType=VARCHAR},
+      picture = #{picture,jdbcType=VARCHAR},
+      at_date = #{atDate,jdbcType=TIMESTAMP},
+      at_time = #{atTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

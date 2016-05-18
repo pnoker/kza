@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.noker.kza.dao.ArticleMapper">
+	<resultMap id="BaseResultMap" type="com.noker.kza.model.Article">
+		<!-- WARNING - @mbggenerated -->
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="app_id" property="appId" jdbcType="VARCHAR" />
+		<result column="type" property="type" jdbcType="INTEGER" />
+		<result column="logo" property="logo" jdbcType="VARCHAR" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="summary" property="summary" jdbcType="VARCHAR" />
+		<result column="upper_org" property="upperOrg" jdbcType="VARCHAR" />
+		<result column="organizer" property="organizer" jdbcType="VARCHAR" />
+		<result column="mag_way" property="magWay" jdbcType="VARCHAR" />
+		<result column="mag_level" property="magLevel" jdbcType="VARCHAR" />
+		<result column="met_date" property="metDate" jdbcType="VARCHAR" />
+		<result column="met_addr" property="metAddr" jdbcType="VARCHAR" />
+		<result column="content" property="content" jdbcType="VARCHAR" />
+		<result column="at_time" property="atTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		<!-- WARNING - @mbggenerated -->
+		id, app_id as appId, type, logo, title, summary, upper_org as
+		upperOrg, organizer, mag_way as magWay,
+		mag_level as magLevel,
+		met_date
+		as metDate, met_addr as metAddr, content, at_time as atTime
+	</sql>
+	<!-- 通过该文章的id号码，查询到所有的信息，其中包括文章 的全部信息，文章作者的全部信息  -->
+	<select id="detailArticle" resultType="com.noker.kza.bean.Articles"
+		parameterType="java.lang.Integer">
+		<!-- WARNING - @mbggenerated -->
+		select
+		<include refid="Base_Column_List" />
+		from article
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="selectByPrimaryKey" resultType="com.noker.kza.bean.Articles"
+		parameterType="java.lang.Integer">
+		<!-- WARNING - @mbggenerated -->
+		select
+		<include refid="Base_Column_List" />
+		from article
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<!-- 选择当前文章列表中最大的id -->
+	<select id="maxId" resultType="java.lang.Integer">
+		SELECT MAX(id) FROM article
+	</select>
+	<select id="count" resultType="java.lang.Integer">
+		SELECT count(*) FROM article where
+		type=4 order by at_time desc
+	</select>
+	<!-- 文章分页查询 -->
+	<select id="pageArticl" resultType="com.noker.kza.bean.Articles"
+		parameterType="com.noker.kza.bean.Page">
+		SELECT id,title,content,summary FROM (SELECT * FROM
+		article WHERE TYPE=4
+		ORDER BY at_time DESC) AS a LIMIT
+		#{pre,jdbcType=INTEGER},#{nex,jdbcType=INTEGER}
+	</select>
+	<!-- 查询全部的文章，通过实践排序 -->
+	<select id="selectAllArticle" resultType="com.noker.kza.bean.Articles"><!-- parameterType：接受请求类型 
+			resultType：结果返回类型 -->
+		select
+		<include refid="Base_Column_List" />
+		from article where type=4 order
+		by at_time desc
+	</select>
+	<!-- 查询全部的会议，通过实践排序 -->
+	<select id="selectAllMetting" resultType="com.noker.kza.bean.Articles"
+		parameterType="com.noker.kza.bean.Articles"><!-- parameterType：接受请求类型 resultType：结果返回类型 -->
+		select
+		<include refid="Base_Column_List" />
+		from article where type=2 order
+		by at_time desc
+	</select>
+	<!-- 查询全部的杂志，通过实践排序 -->
+	<select id="selectAllMaganize" resultType="com.noker.kza.bean.Articles"
+		parameterType="com.noker.kza.bean.Articles"><!-- parameterType：接受请求类型 resultType：结果返回类型 -->
+		select
+		<include refid="Base_Column_List" />
+		from article where type=1 order
+		by at_time desc
+	</select>
+	<select id="selectArticleByDoctorName" resultType="com.noker.kza.bean.Articles"
+		parameterType="com.noker.kza.model.Article">
+		SELECT name,sex,a.role,id, article.app_id AS appId,
+		type, logo,
+		title, summary, upper_org AS upperOrg, organizer, mag_way
+		AS
+		magWay,mag_level AS magLevel,met_date AS metDate, met_addr AS
+		metAddr,
+		content, at_time AS atTime FROM article LEFT JOIN (SELECT
+		app_id,user.user_id,sex,name,role FROM mp_user LEFT JOIN user ON
+		user.user_id=mp_user.user_id WHERE role=2) AS a ON
+		a.app_id=article.app_id WHERE TYPE=4
+	</select>
+	<!-- 通过id删除文章，因为文章的id是唯一的 -->
+	<!-- 那么问题来了，怎么找到相应的id呢，比如，如何删除某个具体医生的谋篇具体文章呢？可以通过上面的查找方法get到该医生的文章的具体id -->
+	<!-- 查到具体id之后调用这个方法就可以将这篇文章删除，然后让前端刷新一下就oＫ了! -->
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		<!-- WARNING - @mbggenerated -->
+		delete from article
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insertByArticle" parameterType="java.lang.String">
+		insert into article
+		(type,title,logo,summary,at_time)values
+		(4,#{title,jdbcType=VARCHAR},#{logo,jdbcType=VARCHAR},#{summary,jdbcType=VARCHAR},#{atTime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insert" parameterType="com.noker.kza.model.Article">
+		<!-- WARNING - @mbggenerated -->
+		insert into article (id, app_id, type,
+		logo, title, summary,
+		upper_org,
+		organizer, mag_way,
+		mag_level, met_date, met_addr,
+		content, at_time)
+		values (#{id,jdbcType=INTEGER}, #{appId,jdbcType=VARCHAR},
+		#{type,jdbcType=INTEGER},
+		#{logo,jdbcType=VARCHAR},
+		#{title,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR},
+		#{upperOrg,jdbcType=VARCHAR}, #{organizer,jdbcType=VARCHAR},
+		#{magWay,jdbcType=VARCHAR},
+		#{magLevel,jdbcType=VARCHAR},
+		#{metDate,jdbcType=VARCHAR}, #{metAddr,jdbcType=VARCHAR},
+		#{content,jdbcType=VARCHAR}, #{atTime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" parameterType="com.noker.kza.model.Article">
+		<!-- WARNING - @mbggenerated -->
+		insert into article
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="mobile != null">
+				app_id,
+			</if>
+			<if test="type != null">
+				type,
+			</if>
+			<if test="logo != null">
+				logo,
+			</if>
+			<if test="title != null">
+				title,
+			</if>
+			<if test="summary != null">
+				summary,
+			</if>
+			<if test="upperOrg != null">
+				upper_org,
+			</if>
+			<if test="organizer != null">
+				organizer,
+			</if>
+			<if test="magWay != null">
+				mag_way,
+			</if>
+			<if test="magLevel != null">
+				mag_level,
+			</if>
+			<if test="metDate != null">
+				met_date,
+			</if>
+			<if test="metAddr != null">
+				met_addr,
+			</if>
+			<if test="content != null">
+				content,
+			</if>
+			<if test="atTime != null">
+				at_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="mobile != null">
+				#{appId,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=INTEGER},
+			</if>
+			<if test="logo != null">
+				#{logo,jdbcType=VARCHAR},
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR},
+			</if>
+			<if test="summary != null">
+				#{summary,jdbcType=VARCHAR},
+			</if>
+			<if test="upperOrg != null">
+				#{upperOrg,jdbcType=VARCHAR},
+			</if>
+			<if test="organizer != null">
+				#{organizer,jdbcType=VARCHAR},
+			</if>
+			<if test="magWay != null">
+				#{magWay,jdbcType=VARCHAR},
+			</if>
+			<if test="magLevel != null">
+				#{magLevel,jdbcType=VARCHAR},
+			</if>
+			<if test="metDate != null">
+				#{metDate,jdbcType=VARCHAR},
+			</if>
+			<if test="metAddr != null">
+				#{metAddr,jdbcType=VARCHAR},
+			</if>
+			<if test="content != null">
+				#{content,jdbcType=VARCHAR},
+			</if>
+			<if test="atTime != null">
+				#{atTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.noker.kza.model.Article">
+		<!-- WARNING - @mbggenerated -->
+		update article
+		<set>
+			<if test="mobile != null">
+				app_id = #{appId,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				type = #{type,jdbcType=INTEGER},
+			</if>
+			<if test="logo != null">
+				logo = #{logo,jdbcType=VARCHAR},
+			</if>
+			<if test="title != null">
+				title = #{title,jdbcType=VARCHAR},
+			</if>
+			<if test="summary != null">
+				summary = #{summary,jdbcType=VARCHAR},
+			</if>
+			<if test="upperOrg != null">
+				upper_org = #{upperOrg,jdbcType=VARCHAR},
+			</if>
+			<if test="organizer != null">
+				organizer = #{organizer,jdbcType=VARCHAR},
+			</if>
+			<if test="magWay != null">
+				mag_way = #{magWay,jdbcType=VARCHAR},
+			</if>
+			<if test="magLevel != null">
+				mag_level = #{magLevel,jdbcType=VARCHAR},
+			</if>
+			<if test="metDate != null">
+				met_date = #{metDate,jdbcType=VARCHAR},
+			</if>
+			<if test="metAddr != null">
+				met_addr = #{metAddr,jdbcType=VARCHAR},
+			</if>
+			<if test="content != null">
+				content = #{content,jdbcType=VARCHAR},
+			</if>
+			<if test="atTime != null">
+				at_time = #{atTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.noker.kza.model.Article">
+		<!-- WARNING - @mbggenerated -->
+		update article
+		set app_id = #{appId,jdbcType=VARCHAR},
+		type =
+		#{type,jdbcType=INTEGER},
+		logo = #{logo,jdbcType=VARCHAR},
+		title =
+		#{title,jdbcType=VARCHAR},
+		summary = #{summary,jdbcType=VARCHAR},
+		upper_org = #{upperOrg,jdbcType=VARCHAR},
+		organizer =
+		#{organizer,jdbcType=VARCHAR},
+		mag_way = #{magWay,jdbcType=VARCHAR},
+		mag_level = #{magLevel,jdbcType=VARCHAR},
+		met_date =
+		#{metDate,jdbcType=VARCHAR},
+		met_addr = #{metAddr,jdbcType=VARCHAR},
+		content = #{content,jdbcType=VARCHAR},
+		at_time =
+		#{atTime,jdbcType=TIMESTAMP}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>

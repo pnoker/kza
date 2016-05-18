@@ -1,0 +1,46 @@
+#parse("layout/navigation.html")
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12">
+			<table class="sui-table table-bordered">
+				<thead>
+					<tr>
+						<th class="col-sm-1">..</th>
+						<th class="col-sm-1">姓名</th>
+						<th class="col-sm-1">性别</th>
+						<th class="col-sm-1">联系电话</th>
+						<th class="col-sm-1">微信号</th>
+						<th class="col-sm-1">发表文章数目</th>
+						<th class="col-sm-1">患者数目</th>
+						<th class="col-sm-1">资金统计</th>
+						<th class="col-sm-1">详情……</th>
+					</tr>
+				</thead>
+				#foreach($patients in ${patients})
+				<tbody>
+					<tr>
+						<td><img src="$!{doctors.wLogo}" width="80px"></td>
+						<td>$!{patients.name}</td>
+						<!-- 姓名 -->
+						<td>$!{patients.sex}</td>
+						<!-- 性别 -->
+						<td>$!{patients.mobile}</td>
+						<!-- 手机号码 -->
+						<td>$!{patients.wCode}</td>
+						<!-- 微信账号 -->
+						<td>$!{patients.Aacount}</td>
+						<!-- 已发表文章账号 -->
+						<td>$!{patients.Pacount}</td>
+						<!-- 改医生有多少位患者 -->
+						<td>$!{patients.Facunt}</td>
+						<!-- 该医生的资金数目 -->
+						<td><a>删除</a><a>修改</a></td>
+						<!-- 详情按钮 -->
+					</tr>
+				</tbody>
+				#end
+			</table>
+		</div>
+	</div>
+</div>
+<script src="${rc.contextPath}/js/iRadio.js"></script>

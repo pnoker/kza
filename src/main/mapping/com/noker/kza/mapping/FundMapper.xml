@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.noker.kza.dao.FundMapper">
+  <resultMap id="BaseResultMap" type="com.noker.kza.model.Fund">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="pay_id" jdbcType="VARCHAR" property="payId" />
+    <result column="topup" jdbcType="INTEGER" property="topup" />
+    <result column="withdraw" jdbcType="INTEGER" property="withdraw" />
+    <result column="source" jdbcType="INTEGER" property="source" />
+    <result column="at_time" jdbcType="TIMESTAMP" property="atTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    id, pay_id, topup, withdraw, source, at_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from fund
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    delete from fund
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.noker.kza.model.Fund">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    insert into fund (id, pay_id, topup, 
+      withdraw, source, at_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{payId,jdbcType=VARCHAR}, #{topup,jdbcType=INTEGER}, 
+      #{withdraw,jdbcType=INTEGER}, #{source,jdbcType=INTEGER}, #{atTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.noker.kza.model.Fund">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    insert into fund
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="payId != null">
+        pay_id,
+      </if>
+      <if test="topup != null">
+        topup,
+      </if>
+      <if test="withdraw != null">
+        withdraw,
+      </if>
+      <if test="source != null">
+        source,
+      </if>
+      <if test="atTime != null">
+        at_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="payId != null">
+        #{payId,jdbcType=VARCHAR},
+      </if>
+      <if test="topup != null">
+        #{topup,jdbcType=INTEGER},
+      </if>
+      <if test="withdraw != null">
+        #{withdraw,jdbcType=INTEGER},
+      </if>
+      <if test="source != null">
+        #{source,jdbcType=INTEGER},
+      </if>
+      <if test="atTime != null">
+        #{atTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.noker.kza.model.Fund">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    update fund
+    <set>
+      <if test="payId != null">
+        pay_id = #{payId,jdbcType=VARCHAR},
+      </if>
+      <if test="topup != null">
+        topup = #{topup,jdbcType=INTEGER},
+      </if>
+      <if test="withdraw != null">
+        withdraw = #{withdraw,jdbcType=INTEGER},
+      </if>
+      <if test="source != null">
+        source = #{source,jdbcType=INTEGER},
+      </if>
+      <if test="atTime != null">
+        at_time = #{atTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.noker.kza.model.Fund">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    update fund
+    set pay_id = #{payId,jdbcType=VARCHAR},
+      topup = #{topup,jdbcType=INTEGER},
+      withdraw = #{withdraw,jdbcType=INTEGER},
+      source = #{source,jdbcType=INTEGER},
+      at_time = #{atTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.noker.kza.dao.MpUserMapper">
+  <resultMap id="BaseResultMap" type="com.noker.kza.model.MpUser">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="app_id" jdbcType="VARCHAR" property="appId" />
+    <id column="open_id" jdbcType="VARCHAR" property="openId" />
+    <result column="role" jdbcType="INTEGER" property="role" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="at_time" jdbcType="TIMESTAMP" property="atTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    app_id, open_id, role, user_id, at_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.noker.kza.model.MpUserKey" resultMap="BaseResultMap">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from mp_user
+    where app_id = #{appId,jdbcType=VARCHAR}
+      and open_id = #{openId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByAppId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from mp_user
+    where app_id = #{appId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.noker.kza.model.MpUserKey">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    delete from mp_user
+    where app_id = #{appId,jdbcType=VARCHAR}
+      and open_id = #{openId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.noker.kza.model.MpUser">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    insert into mp_user (app_id, open_id, role, 
+      user_id, at_time)
+    values (#{appId,jdbcType=VARCHAR}, #{openId,jdbcType=VARCHAR}, #{role,jdbcType=INTEGER}, 
+      #{userId,jdbcType=VARCHAR}, #{atTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.noker.kza.model.MpUser">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    insert into mp_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="appId != null">
+        app_id,
+      </if>
+      <if test="openId != null">
+        open_id,
+      </if>
+      <if test="role != null">
+        role,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="atTime != null">
+        at_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="appId != null">
+        #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="openId != null">
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null">
+        #{role,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="atTime != null">
+        #{atTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.noker.kza.model.MpUser">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    update mp_user
+    <set>
+      <if test="role != null">
+        role = #{role,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="atTime != null">
+        at_time = #{atTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where app_id = #{appId,jdbcType=VARCHAR}
+      and open_id = #{openId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.noker.kza.model.MpUser">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    update mp_user
+    set role = #{role,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=VARCHAR},
+      at_time = #{atTime,jdbcType=TIMESTAMP}
+    where app_id = #{appId,jdbcType=VARCHAR}
+      and open_id = #{openId,jdbcType=VARCHAR}
+  </update>
+</mapper>
